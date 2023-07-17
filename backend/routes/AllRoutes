@@ -1,0 +1,27 @@
+const express = require("express");
+const { BoardModel } = require("../models/BoardModel");
+const router = express.Router();
+
+router.get("/getBoard", async (req, res) => {
+  try {
+    const boards = await BoardModel.find();
+    return res.json(boards);
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving boards" });
+  }
+});
+
+router.post("/addBoard", async (req, res) => {
+  try {
+    const { name } = req.body;
+    const newBoard = new BoardModel({ name, tasks: [] });
+    await newBoard.save();
+    res.json({ msg: "Board created" });
+  } catch (error) {
+    res.status(500).json({ error: "Error creating board" });
+  }
+});
+
+router.post("/addTasks", (req, res) => {});
+
+module.exports = { router };
