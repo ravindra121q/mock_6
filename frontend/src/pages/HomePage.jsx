@@ -6,9 +6,7 @@ import axios from "axios";
 export const HomePage = () => {
   const navigate = useNavigate();
   const [board, setBoard] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:8080/getBoard").then((res) => console.log(res));
-  });
+  
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) {
